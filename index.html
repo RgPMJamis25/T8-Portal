@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Website Portal</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --border: #334155;
+            --danger: #ef4444;
+            --success: #16a34a;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            position: relative;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* TOP LEFT ADMIN LOGIN BUTTON */
+        .top-left-admin {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 100;
+        }
+        .btn-admin-login {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            transition: all 0.2s;
+        }
+        .btn-admin-login:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* ADMIN PANEL (HIDDEN BY DEFAULT) */
+        .admin-box {
+            display: none;
+            background: #111827;
+            border: 1px dashed var(--accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .admin-box h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        input, select, button {
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text);
+            font-size: 0.9rem;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus { outline: 1px solid var(--accent); }
+        .btn {
+            background: #0284c7;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #0369a1; }
+        .btn-download { background: var(--success); margin-left: 0.5rem; }
+        .btn-download:hover { background: #15803d; }
+        .btn-logout {
+            background: transparent;
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* CARD GRID */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+        .card-header-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .card-icon-wrapper {
+            width: 40px;
+            height: 40px;
+            background: #0f172a;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .card-icon-wrapper img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--text);
+            margin: 0;
+        }
+        .card-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+            line-height: 1.4;
+        }
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .card-actions a {
+            flex: 1;
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            background: #0284c7;
+            color: white;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .card-actions a:hover { background: #0369a1; }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 0.6rem;
+        }
+        .badge {
+            background: #0f172a;
+            color: var(--accent);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+        .btn-delete {
+            background: transparent;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: none; /* Hidden by default until admin logs in */
+        }
+        .btn-delete:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <!-- TOP-LEFT ADMIN TRIGGER -->
+    <div class="top-left-admin">
+        <button class="btn-admin-login" id="adminToggleBtn" onclick="handleAdminAuth()">🔒 Admin</button>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Unified Website Portal</h1>
+            <p style="color: var(--text-muted)">Access and navigate all projects in one unified dashboard.</p>
+        </header>
+
+        <!-- ADMIN PANEL (UNLOCKED ONLY WITH PASSWORD) -->
+        <div class="admin-box" id="adminBox">
+            <h2>
+                <span>⚙️ Admin Management Panel</span>
+                <button class="btn-logout" onclick="logoutAdmin()">Logout Admin</button>
+            </h2>
+            <form id="addLinkForm" onsubmit="handleAddLink(event)">
+                <div class="form-grid">
+                    <input type="text" id="title" placeholder="Site Name (e.g., App V1)" required>
+                    <input type="url" id="url" placeholder="URL (https://...)" required>
+                    <input type="text" id="category" placeholder="Category (e.g., My Websites)" required>
+                    <select id="iconSelect">
+                        <option value="AUTO">🔍 Auto Favicon</option>
+                        <option value="🌐">🌐 Web</option>
+                        <option value="🚀">🚀 App</option>
+                        <option value="🛠️">🛠️ Tool</option>
+                        <option value="📊">📊 Data</option>
+                        <option value="📁">📁 Docs</option>
+                        <option value="🎨">🎨 Design</option>
+                        <option value="🔐">🔐 Security</option>
+                    </select>
+                </div>
+                <input type="text" id="description" placeholder="Short description" required style="width: 100%; margin-bottom: 0.75rem;">
+                <button type="submit" class="btn">+ Add Site Card</button>
+                <button type="button" class="btn btn-download" onclick="downloadJSON()">💾 Save links.json</button>
+            </form>
+        </div>
+
+        <!-- SEARCH BAR -->
+        <input type="text" id="search" placeholder="🔍 Search links or categories..." onkeyup="filterLinks()" style="width: 100%; margin-bottom: 1.5rem;">
+
+        <!-- GRID OF CARDS -->
+        <div class="grid" id="portal-grid"></div>
+    </div>
+
+    <script>
+        const ADMIN_PASS = "RgPMT82026";
+        let isAdminLoggedIn = false;
+        let links = [{"title": "Documentation", "url": "https://docs.example.com", "category": "Work", "description": "Team project docs and guidelines."}, {"title": "GitHub", "url": "https://github.com", "category": "Tools", "description": "Version control and repository hosting."}];
+
+        function getFaviconUrl(url) {
+            try {
+                const domain = new URL(url).hostname;
+                return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function renderCards(data) {
+            const grid = document.getElementById('portal-grid');
+            grid.innerHTML = '';
+
+            if (data.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">No websites found.</p>';
+                return;
+            }
+
+            data.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                let iconHtml = '';
+                if (!item.icon || item.icon === 'AUTO') {
+                    const faviconSrc = getFaviconUrl(item.url);
+                    iconHtml = faviconSrc 
+                        ? `<img src="${faviconSrc}" alt="icon" onerror="this.parentElement.innerText='🌐'">`
+                        : `🌐`;
+                } else {
+                    iconHtml = item.icon;
+                }
+
+                const deleteBtnStyle = isAdminLoggedIn ? 'inline-block' : 'none';
+
+                card.innerHTML = `
+                    <div>
+                        <div class="card-header-row">
+                            <div class="card-icon-wrapper">${iconHtml}</div>
+                            <h3 class="card-title">${item.title}</h3>
+                        </div>
+                        <div class="card-desc">${item.description}</div>
+                    </div>
+                    <div>
+                        <div class="card-actions">
+                            <a href="${item.url}" target="_blank" rel="noopener">Visit Site ↗</a>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge">${item.category}</span>
+                            <button class="btn-delete" style="display: ${deleteBtnStyle}" onclick="deleteLink(${index})">Remove</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function handleAdminAuth() {
+            if (isAdminLoggedIn) return;
+
+            const pwd = prompt("Enter Admin Password:");
+            if (pwd === ADMIN_PASS) {
+                isAdminLoggedIn = true;
+                document.getElementById('adminBox').style.display = 'block';
+                document.getElementById('adminToggleBtn').innerText = "🔓 Admin Active";
+                document.getElementById('adminToggleBtn').style.borderColor = "var(--success)";
+                renderCards(links);
+            } else if (pwd !== null) {
+                alert("Incorrect password!");
+            }
+        }
+
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            document.getElementById('adminBox').style.display = 'none';
+            document.getElementById('adminToggleBtn').innerText = "🔒 Admin";
+            document.getElementById('adminToggleBtn').style.borderColor = "var(--border)";
+            renderCards(links);
+        }
+
+        function handleAddLink(e) {
+            e.preventDefault();
+            if (!isAdminLoggedIn) return;
+
+            const newLink = {
+                title: document.getElementById('title').value,
+                url: document.getElementById('url').value,
+                category: document.getElementById('category').value,
+                icon: document.getElementById('iconSelect').value,
+                description: document.getElementById('description').value
+            };
+
+            links.push(newLink);
+            renderCards(links);
+            document.getElementById('addLinkForm').reset();
+        }
+
+        function deleteLink(index) {
+            if (!isAdminLoggedIn) return;
+            if (confirm("Are you sure you want to remove this site?")) {
+                links.splice(index, 1);
+                renderCards(links);
+            }
+        }
+
+        function filterLinks() {
+            const query = document.getElementById('search').value.toLowerCase();
+            const filtered = links.filter(item => 
+                item.title.toLowerCase().includes(query) ||
+                item.description.toLowerCase().includes(query) ||
+                item.category.toLowerCase().includes(query)
+            );
+            renderCards(filtered);
+        }
+
+        function downloadJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(links, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "links.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        renderCards(links);
+    </script>
+</body>
+</html>
