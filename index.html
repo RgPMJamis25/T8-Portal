@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unified Website Portal</title>
+    <title>T8 Unified Automation Portal</title>
     <style>
         :root {
             --bg: #0f172a;
@@ -207,7 +207,7 @@
             color: var(--danger);
             cursor: pointer;
             font-size: 0.8rem;
-            display: none; /* Hidden by default until admin logs in */
+            display: none;
         }
         .btn-delete:hover { text-decoration: underline; }
     </style>
@@ -221,11 +221,11 @@
 
     <div class="container">
         <header>
-            <h1>Unified Website Portal</h1>
-            <p style="color: var(--text-muted)">Access and navigate all projects in one unified dashboard.</p>
+            <h1>T8 Unified Automation Portal</h1>
+            <p style="color: var(--text-muted)">Portal for all the dashboards of RgPM T8</p>
         </header>
 
-        <!-- ADMIN PANEL (UNLOCKED ONLY WITH PASSWORD) -->
+        <!-- ADMIN PANEL -->
         <div class="admin-box" id="adminBox">
             <h2>
                 <span>⚙️ Admin Management Panel</span>
@@ -235,7 +235,7 @@
                 <div class="form-grid">
                     <input type="text" id="title" placeholder="Site Name (e.g., App V1)" required>
                     <input type="url" id="url" placeholder="URL (https://...)" required>
-                    <input type="text" id="category" placeholder="Category (e.g., My Websites)" required>
+                    <input type="text" id="category" placeholder="Category (e.g., Dashboards)" required>
                     <select id="iconSelect">
                         <option value="AUTO">🔍 Auto Favicon</option>
                         <option value="🌐">🌐 Web</option>
