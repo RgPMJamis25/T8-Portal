@@ -289,7 +289,6 @@
 </head>
 <body>
 
-    <!-- TOP-LEFT HIDDEN ADMIN TRIGGER -->
     <div class="top-left-admin">
         <button class="btn-admin-login" id="adminToggleBtn" onclick="handleAdminAuth()" style="border-color: var(--success);">🔓 Admin Active</button>
     </div>
@@ -300,7 +299,6 @@
             <p>Portal for all the dashboards of RgPM T8</p>
         </header>
 
-        <!-- ADMIN PANEL -->
         <div class="admin-box" id="adminBox" style="display: block;">
             <h2>
                 <span>⚙️ Admin Management Panel</span>
@@ -332,10 +330,8 @@
             </form>
         </div>
 
-        <!-- SEARCH BAR -->
         <input type="text" id="search" class="search-bar" placeholder="🔍 Search links or categories..." onkeyup="filterLinks()">
 
-        <!-- CARDS DISPLAY GRID -->
         <div class="grid" id="portal-grid"><div class="card">
                     <div>
                         <div class="card-header-row">
@@ -394,7 +390,6 @@
         const ADMIN_PASS = "RgPMT82026";
         let isAdminLoggedIn = false;
 
-        // Initial dataset baked into HTML
         const INITIAL_LINKS = [
   {
     "title": "Congestion Monitoring",
@@ -419,7 +414,6 @@
   }
 ];
 
-        // Load cached links from local storage if existing, otherwise use initial
         let linksList = JSON.parse(localStorage.getItem('t8_portal_links')) || INITIAL_LINKS;
 
         function saveToLocalStorage() {
@@ -521,8 +515,6 @@
             saveToLocalStorage();
             renderCards(linksList);
             document.getElementById('addLinkForm').reset();
-
-            // Helpful prompt
             alert("Card added locally! Click '📥 Export & Download Updated index.html' to download the updated file to upload to GitHub.");
         }
 
@@ -546,17 +538,13 @@
         }
 
         function exportUpdatedIndexHtml() {
-            // Grab current HTML source code
             let docHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-
-            // Inject the updated links array into the export code
             const updatedJsonData = JSON.stringify(linksList, null, 2);
             docHtml = docHtml.replace(
                 /const INITIAL_LINKS = \[([\s\S]*?)\];/,
                 `const INITIAL_LINKS = ${updatedJsonData};`
             );
 
-            // Trigger file download
             const blob = new Blob([docHtml], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -580,7 +568,6 @@
             downloadAnchor.remove();
         }
 
-        // Initial render execution
         renderCards(linksList);
     </script>
 
