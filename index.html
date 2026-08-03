@@ -335,40 +335,6 @@
         <div class="grid" id="portal-grid"><div class="card">
                     <div>
                         <div class="card-header-row">
-                            <div class="card-icon-wrapper"><img src="https://www.google.com/s2/favicons?domain=docs.example.com&amp;sz=64" alt="icon" onerror="this.parentElement.innerText='🌐'"></div>
-                            <h3 class="card-title">Documentation</h3>
-                        </div>
-                        <div class="card-desc">Team project docs and guidelines.</div>
-                    </div>
-                    <div>
-                        <div class="card-actions">
-                            <a href="https://docs.example.com" target="_blank" rel="noopener">Visit Dashboard ↗</a>
-                        </div>
-                        <div class="card-footer">
-                            <span class="badge">Work</span>
-                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(0)">Remove</button>
-                        </div>
-                    </div>
-                </div><div class="card">
-                    <div>
-                        <div class="card-header-row">
-                            <div class="card-icon-wrapper"><img src="https://www.google.com/s2/favicons?domain=github.com&amp;sz=64" alt="icon" onerror="this.parentElement.innerText='🌐'"></div>
-                            <h3 class="card-title">GitHub</h3>
-                        </div>
-                        <div class="card-desc">Version control and repository hosting.</div>
-                    </div>
-                    <div>
-                        <div class="card-actions">
-                            <a href="https://github.com" target="_blank" rel="noopener">Visit Dashboard ↗</a>
-                        </div>
-                        <div class="card-footer">
-                            <span class="badge">Tools</span>
-                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(1)">Remove</button>
-                        </div>
-                    </div>
-                </div><div class="card">
-                    <div>
-                        <div class="card-header-row">
                             <div class="card-icon-wrapper"><img src="https://www.google.com/s2/favicons?domain=rgpmjamis25.github.io&amp;sz=64" alt="icon" onerror="this.parentElement.innerText='🌐'"></div>
                             <h3 class="card-title">Project Hermes Swap Universe</h3>
                         </div>
@@ -380,7 +346,7 @@
                         </div>
                         <div class="card-footer">
                             <span class="badge">MONITORING</span>
-                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(2)">Remove</button>
+                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(0)">Remove</button>
                         </div>
                     </div>
                 </div><div class="card">
@@ -397,7 +363,58 @@
                         </div>
                         <div class="card-footer">
                             <span class="badge">INSIGHTS</span>
+                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(1)">Remove</button>
+                        </div>
+                    </div>
+                </div><div class="card">
+                    <div>
+                        <div class="card-header-row">
+                            <div class="card-icon-wrapper">📊</div>
+                            <h3 class="card-title">Weekly Congestion Monitoring</h3>
+                        </div>
+                        <div class="card-desc">MONITORS T8 CONGESTION TREND</div>
+                    </div>
+                    <div>
+                        <div class="card-actions">
+                            <a href="https://rgpmjamis25.github.io/Congestion-Weekly-Monitoring/" target="_blank" rel="noopener">Visit Dashboard ↗</a>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge">MONITORING</span>
+                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(2)">Remove</button>
+                        </div>
+                    </div>
+                </div><div class="card">
+                    <div>
+                        <div class="card-header-row">
+                            <div class="card-icon-wrapper">🌐</div>
+                            <h3 class="card-title">Project Hermes SSV Progress</h3>
+                        </div>
+                        <div class="card-desc">SSV AND CLUSTER OPTI MONITORING</div>
+                    </div>
+                    <div>
+                        <div class="card-actions">
+                            <a href="https://rgpmjamis25.github.io/Hermes-SSV/" target="_blank" rel="noopener">Visit Dashboard ↗</a>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge">MONITORING</span>
                             <button class="btn-delete" style="display: inline-block" onclick="deleteLink(3)">Remove</button>
+                        </div>
+                    </div>
+                </div><div class="card">
+                    <div>
+                        <div class="card-header-row">
+                            <div class="card-icon-wrapper">📊</div>
+                            <h3 class="card-title">Traffic Monitoring</h3>
+                        </div>
+                        <div class="card-desc">MONITORS T8 4G AND 5G TRAFFIC</div>
+                    </div>
+                    <div>
+                        <div class="card-actions">
+                            <a href="https://rgpmjamis25.github.io/T8-Traffic-Monitoring/" target="_blank" rel="noopener">Visit Dashboard ↗</a>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge">MONITORING</span>
+                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(4)">Remove</button>
                         </div>
                     </div>
                 </div></div>
@@ -408,18 +425,6 @@
         let isAdminLoggedIn = false;
 
         const INITIAL_LINKS = [
-  {
-    "title": "Documentation",
-    "url": "https://docs.example.com",
-    "category": "Work",
-    "description": "Team project docs and guidelines."
-  },
-  {
-    "title": "GitHub",
-    "url": "https://github.com",
-    "category": "Tools",
-    "description": "Version control and repository hosting."
-  },
   {
     "title": "Project Hermes Swap Universe",
     "url": "https://rgpmjamis25.github.io/Hermes-Project-Swap/",
@@ -433,6 +438,27 @@
     "category": "INSIGHTS",
     "icon": "📊",
     "description": "NETWORK INSIGHTS FOR TRAFFIC CONGESTION AND META DATA"
+  },
+  {
+    "title": "Weekly Congestion Monitoring",
+    "url": "https://rgpmjamis25.github.io/Congestion-Weekly-Monitoring/",
+    "category": "MONITORING",
+    "icon": "📊",
+    "description": "MONITORS T8 CONGESTION TREND"
+  },
+  {
+    "title": "Project Hermes SSV Progress",
+    "url": "https://rgpmjamis25.github.io/Hermes-SSV/",
+    "category": "MONITORING",
+    "icon": "🌐",
+    "description": "SSV AND CLUSTER OPTI MONITORING"
+  },
+  {
+    "title": "Traffic Monitoring",
+    "url": "https://rgpmjamis25.github.io/T8-Traffic-Monitoring/",
+    "category": "MONITORING",
+    "icon": "📊",
+    "description": "MONITORS T8 4G AND 5G TRAFFIC"
   }
 ];
 
