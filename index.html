@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T8 Unified Automation Portal</title>
 
     <style>
         :root {
-            --bg: #0f172a;
-            --card-bg: #1e293b;
+            --bg: #0b0f19;
+            --card-bg: #151d30;
+            --card-hover: #1c2742;
             --text: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #38bdf8;
-            --border: #334155;
+            --accent-glow: rgba(56, 189, 248, 0.25);
+            --border: #23314d;
             --danger: #ef4444;
-            --success: #16a34a;
+            --success: #10b981;
         }
 
         body {
@@ -28,20 +31,21 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             width: 100%;
         }
 
         header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         header h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 0.5rem;
             color: var(--text);
+            letter-spacing: -0.5px;
         }
 
         header p {
@@ -50,7 +54,6 @@
             font-size: 1rem;
         }
 
-        /* TOP-LEFT ADMIN TOGGLE BUTTON */
         .top-left-admin {
             position: absolute;
             top: 1rem;
@@ -59,31 +62,31 @@
         }
 
         .btn-admin-login {
-            background: rgba(30, 41, 59, 0.85);
+            background: rgba(21, 29, 48, 0.85);
             border: 1px solid var(--border);
             color: var(--text-muted);
             padding: 0.4rem 0.85rem;
             border-radius: 20px;
             font-size: 0.8rem;
             cursor: pointer;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(8px);
             transition: all 0.2s ease;
         }
 
         .btn-admin-login:hover {
             color: var(--accent);
             border-color: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
         }
 
-        /* ADMIN MANAGEMENT PANEL */
         .admin-box {
             display: none;
-            background: #111827;
+            background: #0f172a;
             border: 1px dashed var(--accent);
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 1.5rem;
             margin-bottom: 2rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
         }
 
         .admin-box h2 {
@@ -102,9 +105,16 @@
             margin-bottom: 0.75rem;
         }
 
+        .upload-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            align-items: center;
+        }
+
         input, select, button {
             padding: 0.65rem 0.85rem;
-            border-radius: 6px;
+            border-radius: 8px;
             border: 1px solid var(--border);
             background: var(--card-bg);
             color: var(--text);
@@ -114,6 +124,11 @@
 
         input:focus, select:focus {
             outline: 1px solid var(--accent);
+        }
+
+        input[type="file"] {
+            padding: 0.45rem;
+            font-size: 0.82rem;
         }
 
         .btn {
@@ -138,7 +153,7 @@
         }
 
         .btn-success:hover {
-            background: #15803d;
+            background: #059669;
         }
 
         .admin-actions {
@@ -153,162 +168,209 @@
             border: 1px solid var(--danger);
             color: var(--danger);
             font-size: 0.75rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
+            padding: 0.26rem 0.6rem;
+            border-radius: 6px;
             cursor: pointer;
         }
 
         .btn-logout:hover {
-            background: rgba(239, 68, 68, 0.1);
+            background: rgba(239, 68, 68, 0.15);
         }
 
-        /* SEARCH BAR */
         .search-bar {
             width: 100%;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             box-sizing: border-box;
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            font-size: 0.95rem;
         }
 
-        /* CARD GRID */
+        /* BUTTON-STYLE CARD GRID */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.25rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
 
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.25rem;
+        .card-button {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s, border-color 0.2s;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         }
 
-        .card:hover {
-            transform: translateY(-3px);
+        .card-button:hover {
+            transform: translateY(-6px) scale(1.01);
             border-color: var(--accent);
+            background: var(--card-hover);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), 0 0 16px var(--accent-glow);
         }
 
-        .card-header-row {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .card-icon-wrapper {
-            width: 42px;
-            height: 42px;
-            background: #0f172a;
-            border-radius: 8px;
+        .card-media {
+            position: relative;
+            width: 100%;
+            height: 140px;
+            background: #0d1322;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
-            border: 1px solid var(--border);
-            flex-shrink: 0;
-            overflow: hidden;
         }
 
-        .card-icon-wrapper img {
-            width: 24px;
-            height: 24px;
+        .card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .card-button:hover .card-media img {
+            transform: scale(1.06);
+        }
+
+        .card-media-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            font-size: 2.8rem;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(8px);
+            color: var(--accent);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-content {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .card-title-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-icon {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon img {
+            width: 20px;
+            height: 20px;
             object-fit: contain;
         }
 
         .card-title {
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 700;
             color: var(--text);
             margin: 0;
+            line-height: 1.3;
         }
 
         .card-desc {
-            font-size: 0.88rem;
+            font-size: 0.86rem;
             color: var(--text-muted);
+            line-height: 1.45;
             margin-bottom: 1.25rem;
-            line-height: 1.4;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .card-actions a {
-            flex: 1;
-            text-align: center;
-            padding: 0.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            background: #0284c7;
-            color: white;
-            font-weight: 500;
-            transition: background 0.2s;
-        }
-
-        .card-actions a:hover {
-            background: #0369a1;
         }
 
         .card-footer {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             border-top: 1px solid var(--border);
-            padding-top: 0.6rem;
+            padding-top: 0.75rem;
+            margin-top: auto;
         }
 
-        .badge {
-            background: #0f172a;
+        .action-label {
+            font-size: 0.85rem;
+            font-weight: 600;
             color: var(--accent);
-            font-size: 0.75rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: gap 0.2s ease;
+        }
+
+        .card-button:hover .action-label {
+            gap: 0.55rem;
         }
 
         .btn-delete {
-            background: transparent;
-            border: none;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
             color: var(--danger);
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            z-index: 10;
             display: none;
+            transition: all 0.2s;
         }
 
         .btn-delete:hover {
-            text-decoration: underline;
+            background: var(--danger);
+            color: white;
         }
     </style>
 </head>
 <body>
 
     <div class="top-left-admin">
-        <button class="btn-admin-login" id="adminToggleBtn" onclick="handleAdminAuth()" style="border-color: var(--success);">🔓 Admin Active</button>
+        <button class="btn-admin-login" id="adminToggleBtn" onclick="handleAdminAuth()">🔒 Admin</button>
     </div>
 
     <div class="container">
         <header>
             <h1>T8 Unified Automation Portal</h1>
-            <p>Portal for all the dashboards of RgPM T8</p>
+            <p>Select a dashboard to launch application</p>
         </header>
 
-        <div class="admin-box" id="adminBox" style="display: block;">
+        <div class="admin-box" id="adminBox">
             <h2>
                 <span>⚙️ Admin Management Panel</span>
                 <button class="btn-logout" onclick="logoutAdmin()">Logout Admin</button>
             </h2>
             <form id="addLinkForm" onsubmit="handleAddLink(event)">
                 <div class="form-grid">
-                    <input type="text" id="title" placeholder="Site Name (e.g., App V1)" required="">
-                    <input type="url" id="url" placeholder="URL (https://...)" required="">
-                    <input type="text" id="category" placeholder="Category (e.g., Dashboards)" required="">
+                    <input type="text" id="title" placeholder="Site Name (e.g., App V1)" required>
+                    <input type="url" id="url" placeholder="URL (https://...)" required>
+                    <input type="text" id="category" placeholder="Category (e.g., Dashboards)" required>
                     <select id="iconSelect">
                         <option value="AUTO">🔍 Auto Favicon</option>
                         <option value="🌐">🌐 Web</option>
@@ -320,11 +382,18 @@
                         <option value="🔐">🔐 Security</option>
                     </select>
                 </div>
-                <input type="text" id="description" placeholder="Short description" required="" style="width: 100%; margin-bottom: 0.75rem;">
+
+                <div class="upload-row">
+                    <input type="file" id="logoFile" accept="image/*" style="flex: 1;">
+                    <span style="color: var(--text-muted); font-size: 0.8rem;">OR</span>
+                    <input type="url" id="imageUrl" placeholder="Header Image / Logo URL (https://...)" style="flex: 2;">
+                </div>
+
+                <input type="text" id="description" placeholder="Short description" required style="width: 100%; margin-bottom: 0.75rem;">
 
                 <div class="admin-actions">
                     <button type="submit" class="btn">+ Add Site Card</button>
-                    <button type="button" class="btn btn-success" onclick="exportUpdatedIndexHtml()">📥 Export &amp; Download Updated index.html (For GitHub)</button>
+                    <button type="button" class="btn btn-success" onclick="exportUpdatedIndexHtml()">📥 Export & Download Updated index.html (For GitHub)</button>
                     <button type="button" class="btn" style="background:#334155" onclick="downloadJsonBackup()">💾 Download links.json</button>
                 </div>
             </form>
@@ -332,92 +401,7 @@
 
         <input type="text" id="search" class="search-bar" placeholder="🔍 Search links or categories..." onkeyup="filterLinks()">
 
-        <div class="grid" id="portal-grid"><div class="card">
-                    <div>
-                        <div class="card-header-row">
-                            <div class="card-icon-wrapper"><img src="https://www.google.com/s2/favicons?domain=rgpmjamis25.github.io&amp;sz=64" alt="icon" onerror="this.parentElement.innerText='🌐'"></div>
-                            <h3 class="card-title">Project Hermes Swap Universe</h3>
-                        </div>
-                        <div class="card-desc">Monitors the Hermes Swap Project</div>
-                    </div>
-                    <div>
-                        <div class="card-actions">
-                            <a href="https://rgpmjamis25.github.io/Hermes-Project-Swap/" target="_blank" rel="noopener">Visit Dashboard ↗</a>
-                        </div>
-                        <div class="card-footer">
-                            <span class="badge">MONITORING</span>
-                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(0)">Remove</button>
-                        </div>
-                    </div>
-                </div><div class="card">
-                    <div>
-                        <div class="card-header-row">
-                            <div class="card-icon-wrapper">📊</div>
-                            <h3 class="card-title">NETWORK INSIGHTS</h3>
-                        </div>
-                        <div class="card-desc">NETWORK INSIGHTS FOR TRAFFIC CONGESTION AND META DATA</div>
-                    </div>
-                    <div>
-                        <div class="card-actions">
-                            <a href="https://rgpmjamis25.github.io/NETWORK-INSIGHTS/" target="_blank" rel="noopener">Visit Dashboard ↗</a>
-                        </div>
-                        <div class="card-footer">
-                            <span class="badge">INSIGHTS</span>
-                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(1)">Remove</button>
-                        </div>
-                    </div>
-                </div><div class="card">
-                    <div>
-                        <div class="card-header-row">
-                            <div class="card-icon-wrapper">📊</div>
-                            <h3 class="card-title">Weekly Congestion Monitoring</h3>
-                        </div>
-                        <div class="card-desc">MONITORS T8 CONGESTION TREND</div>
-                    </div>
-                    <div>
-                        <div class="card-actions">
-                            <a href="https://rgpmjamis25.github.io/Congestion-Weekly-Monitoring/" target="_blank" rel="noopener">Visit Dashboard ↗</a>
-                        </div>
-                        <div class="card-footer">
-                            <span class="badge">MONITORING</span>
-                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(2)">Remove</button>
-                        </div>
-                    </div>
-                </div><div class="card">
-                    <div>
-                        <div class="card-header-row">
-                            <div class="card-icon-wrapper">🌐</div>
-                            <h3 class="card-title">Project Hermes SSV Progress</h3>
-                        </div>
-                        <div class="card-desc">SSV AND CLUSTER OPTI MONITORING</div>
-                    </div>
-                    <div>
-                        <div class="card-actions">
-                            <a href="https://rgpmjamis25.github.io/Hermes-SSV/" target="_blank" rel="noopener">Visit Dashboard ↗</a>
-                        </div>
-                        <div class="card-footer">
-                            <span class="badge">MONITORING</span>
-                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(3)">Remove</button>
-                        </div>
-                    </div>
-                </div><div class="card">
-                    <div>
-                        <div class="card-header-row">
-                            <div class="card-icon-wrapper">📊</div>
-                            <h3 class="card-title">Traffic Monitoring</h3>
-                        </div>
-                        <div class="card-desc">MONITORS T8 4G AND 5G TRAFFIC</div>
-                    </div>
-                    <div>
-                        <div class="card-actions">
-                            <a href="https://rgpmjamis25.github.io/T8-Traffic-Monitoring/" target="_blank" rel="noopener">Visit Dashboard ↗</a>
-                        </div>
-                        <div class="card-footer">
-                            <span class="badge">MONITORING</span>
-                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(4)">Remove</button>
-                        </div>
-                    </div>
-                </div></div>
+        <div class="grid" id="portal-grid"></div>
     </div>
 
     <script>
@@ -426,42 +410,25 @@
 
         const INITIAL_LINKS = [
   {
+    "title": "Documentation",
+    "url": "https://docs.example.com",
+    "category": "Work",
+    "description": "Team project docs and guidelines."
+  },
+  {
+    "title": "GitHub",
+    "url": "https://github.com",
+    "category": "Tools",
+    "description": "Version control and repository hosting."
+  },
+  {
     "title": "Project Hermes Swap Universe",
     "url": "https://rgpmjamis25.github.io/Hermes-Project-Swap/",
     "category": "MONITORING",
     "description": "Monitors the Hermes Swap Project",
     "icon": "AUTO"
-  },
-  {
-    "title": "NETWORK INSIGHTS",
-    "url": "https://rgpmjamis25.github.io/NETWORK-INSIGHTS/",
-    "category": "INSIGHTS",
-    "icon": "📊",
-    "description": "NETWORK INSIGHTS FOR TRAFFIC CONGESTION AND META DATA"
-  },
-  {
-    "title": "Weekly Congestion Monitoring",
-    "url": "https://rgpmjamis25.github.io/Congestion-Weekly-Monitoring/",
-    "category": "MONITORING",
-    "icon": "📊",
-    "description": "MONITORS T8 CONGESTION TREND"
-  },
-  {
-    "title": "Project Hermes SSV Progress",
-    "url": "https://rgpmjamis25.github.io/Hermes-SSV/",
-    "category": "MONITORING",
-    "icon": "🌐",
-    "description": "SSV AND CLUSTER OPTI MONITORING"
-  },
-  {
-    "title": "Traffic Monitoring",
-    "url": "https://rgpmjamis25.github.io/T8-Traffic-Monitoring/",
-    "category": "MONITORING",
-    "icon": "📊",
-    "description": "MONITORS T8 4G AND 5G TRAFFIC"
   }
 ];
-
         let linksList = JSON.parse(localStorage.getItem('t8_portal_links')) || INITIAL_LINKS;
 
         function saveToLocalStorage() {
@@ -481,14 +448,21 @@
             const grid = document.getElementById('portal-grid');
             grid.innerHTML = '';
 
-            if (data.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">No dashboard links found.</p>';
+            if (!data || data.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem 1rem; background: var(--card-bg); border-radius: 12px; border: 1px dashed var(--border);">
+                        <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">No dashboard links configured yet.</p>
+                        <p style="font-size: 0.85rem; margin: 0;">Log in as <strong>Admin</strong> at top left to add your first dashboard card.</p>
+                    </div>`;
                 return;
             }
 
             data.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = 'card';
+                const card = document.createElement('a');
+                card.className = 'card-button';
+                card.href = item.url;
+                card.target = '_blank';
+                card.rel = 'noopener';
 
                 let iconHtml = '';
                 if (!item.icon || item.icon === 'AUTO') {
@@ -500,23 +474,28 @@
                     iconHtml = item.icon;
                 }
 
+                const mediaHtml = item.image 
+                    ? `<img src="${item.image}" alt="${item.title}" onerror="this.parentElement.innerHTML='<div class="card-media-placeholder">${iconHtml}</div>'">`
+                    : `<div class="card-media-placeholder">${iconHtml}</div>`;
+
                 const deleteBtnStyle = isAdminLoggedIn ? 'inline-block' : 'none';
 
                 card.innerHTML = `
-                    <div>
-                        <div class="card-header-row">
-                            <div class="card-icon-wrapper">${iconHtml}</div>
-                            <h3 class="card-title">${item.title}</h3>
-                        </div>
-                        <div class="card-desc">${item.description}</div>
+                    <div class="card-media">
+                        ${mediaHtml}
+                        <span class="card-badge">${item.category}</span>
                     </div>
-                    <div>
-                        <div class="card-actions">
-                            <a href="${item.url}" target="_blank" rel="noopener">Visit Dashboard ↗</a>
+                    <div class="card-content">
+                        <div>
+                            <div class="card-title-row">
+                                <span class="card-icon">${iconHtml}</span>
+                                <h3 class="card-title">${item.title}</h3>
+                            </div>
+                            <div class="card-desc">${item.description}</div>
                         </div>
                         <div class="card-footer">
-                            <span class="badge">${item.category}</span>
-                            <button class="btn-delete" style="display: ${deleteBtnStyle}" onclick="deleteLink(${index})">Remove</button>
+                            <span class="action-label">Open Dashboard ↗</span>
+                            <button class="btn-delete" style="display: ${deleteBtnStyle}" onclick="deleteLink(event, ${index})">Remove</button>
                         </div>
                     </div>
                 `;
@@ -547,15 +526,29 @@
             renderCards(linksList);
         }
 
-        function handleAddLink(e) {
+        async function handleAddLink(e) {
             e.preventDefault();
             if (!isAdminLoggedIn) return;
+
+            let finalImagePath = document.getElementById('imageUrl').value;
+            const fileInput = document.getElementById('logoFile');
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+
+                finalImagePath = await new Promise((resolve) => {
+                    reader.onload = () => resolve(reader.result);
+                    reader.readAsDataURL(file);
+                });
+            }
 
             const newLink = {
                 title: document.getElementById('title').value,
                 url: document.getElementById('url').value,
                 category: document.getElementById('category').value,
                 icon: document.getElementById('iconSelect').value,
+                image: finalImagePath,
                 description: document.getElementById('description').value
             };
 
@@ -566,7 +559,9 @@
             alert("Card added locally! Click '📥 Export & Download Updated index.html' to download the updated file to upload to GitHub.");
         }
 
-        function deleteLink(index) {
+        function deleteLink(e, index) {
+            e.preventDefault();
+            e.stopPropagation();
             if (!isAdminLoggedIn) return;
             if (confirm("Are you sure you want to remove this site?")) {
                 linksList.splice(index, 1);
@@ -588,6 +583,7 @@
         function exportUpdatedIndexHtml() {
             let docHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
             const updatedJsonData = JSON.stringify(linksList, null, 2);
+
             docHtml = docHtml.replace(
                 /const INITIAL_LINKS = \[([\s\S]*?)\];/,
                 `const INITIAL_LINKS = ${updatedJsonData};`
@@ -618,6 +614,5 @@
 
         renderCards(linksList);
     </script>
-
-
-</body></html>
+</body>
+</html>
