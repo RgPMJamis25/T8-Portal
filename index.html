@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T8 Unified Automation Portal</title>
@@ -352,7 +351,7 @@
 <body>
 
     <div class="top-left-admin">
-        <button class="btn-admin-login" id="adminToggleBtn" onclick="handleAdminAuth()">🔒 Admin</button>
+        <button class="btn-admin-login" id="adminToggleBtn" onclick="handleAdminAuth()" style="border-color: var(--success);">🔓 Admin Active</button>
     </div>
 
     <div class="container">
@@ -361,16 +360,16 @@
             <p>Select a dashboard to launch application</p>
         </header>
 
-        <div class="admin-box" id="adminBox">
+        <div class="admin-box" id="adminBox" style="display: block;">
             <h2>
                 <span>⚙️ Admin Management Panel</span>
                 <button class="btn-logout" onclick="logoutAdmin()">Logout Admin</button>
             </h2>
             <form id="addLinkForm" onsubmit="handleAddLink(event)">
                 <div class="form-grid">
-                    <input type="text" id="title" placeholder="Site Name (e.g., App V1)" required>
-                    <input type="url" id="url" placeholder="URL (https://...)" required>
-                    <input type="text" id="category" placeholder="Category (e.g., Dashboards)" required>
+                    <input type="text" id="title" placeholder="Site Name (e.g., App V1)" required="">
+                    <input type="url" id="url" placeholder="URL (https://...)" required="">
+                    <input type="text" id="category" placeholder="Category (e.g., Dashboards)" required="">
                     <select id="iconSelect">
                         <option value="AUTO">🔍 Auto Favicon</option>
                         <option value="🌐">🌐 Web</option>
@@ -389,11 +388,11 @@
                     <input type="url" id="imageUrl" placeholder="Header Image / Logo URL (https://...)" style="flex: 2;">
                 </div>
 
-                <input type="text" id="description" placeholder="Short description" required style="width: 100%; margin-bottom: 0.75rem;">
+                <input type="text" id="description" placeholder="Short description" required="" style="width: 100%; margin-bottom: 0.75rem;">
 
                 <div class="admin-actions">
                     <button type="submit" class="btn">+ Add Site Card</button>
-                    <button type="button" class="btn btn-success" onclick="exportUpdatedIndexHtml()">📥 Export & Download Updated index.html (For GitHub)</button>
+                    <button type="button" class="btn btn-success" onclick="exportUpdatedIndexHtml()">📥 Export &amp; Download Updated index.html (For GitHub)</button>
                     <button type="button" class="btn" style="background:#334155" onclick="downloadJsonBackup()">💾 Download links.json</button>
                 </div>
             </form>
@@ -401,7 +400,115 @@
 
         <input type="text" id="search" class="search-bar" placeholder="🔍 Search links or categories..." onkeyup="filterLinks()">
 
-        <div class="grid" id="portal-grid"></div>
+        <div class="grid" id="portal-grid"><a class="card-button" href="https://rgpmjamis25.github.io/Hermes-Project-Swap/" target="_blank" rel="noopener">
+                    <div class="card-media">
+                        <div class="card-media-placeholder"><img src="https://www.google.com/s2/favicons?domain=rgpmjamis25.github.io&amp;sz=64" alt="icon" onerror="this.parentElement.innerText='🌐'"></div>
+                        <span class="card-badge">MONITORING</span>
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <div class="card-title-row">
+                                <span class="card-icon"><img src="https://www.google.com/s2/favicons?domain=rgpmjamis25.github.io&amp;sz=64" alt="icon" onerror="this.parentElement.innerText='🌐'"></span>
+                                <h3 class="card-title">Project Hermes Swap Universe</h3>
+                            </div>
+                            <div class="card-desc">Monitors the Hermes Swap Project</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="action-label">Open Dashboard ↗</span>
+                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(event, 0)">Remove</button>
+                        </div>
+                    </div>
+                </a><a class="card-button" href="https://rgpmjamis25.github.io/NETWORK-INSIGHTS/" target="_blank" rel="noopener">
+                    <div class="card-media">
+                        <div class="card-media-placeholder">📊</div>
+                        <span class="card-badge">INSIGHTS</span>
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <div class="card-title-row">
+                                <span class="card-icon">📊</span>
+                                <h3 class="card-title">NETWORK INSIGHTS</h3>
+                            </div>
+                            <div class="card-desc">NETWORK INSIGHTS FOR TRAFFIC CONGESTION AND META DATA</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="action-label">Open Dashboard ↗</span>
+                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(event, 1)">Remove</button>
+                        </div>
+                    </div>
+                </a><a class="card-button" href="https://rgpmjamis25.github.io/Congestion-Weekly-Monitoring/" target="_blank" rel="noopener">
+                    <div class="card-media">
+                        <div class="card-media-placeholder">📊</div>
+                        <span class="card-badge">MONITORING</span>
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <div class="card-title-row">
+                                <span class="card-icon">📊</span>
+                                <h3 class="card-title">Weekly Congestion Monitoring</h3>
+                            </div>
+                            <div class="card-desc">MONITORS T8 CONGESTION TREND</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="action-label">Open Dashboard ↗</span>
+                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(event, 2)">Remove</button>
+                        </div>
+                    </div>
+                </a><a class="card-button" href="https://rgpmjamis25.github.io/Hermes-SSV/" target="_blank" rel="noopener">
+                    <div class="card-media">
+                        <div class="card-media-placeholder">🌐</div>
+                        <span class="card-badge">MONITORING</span>
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <div class="card-title-row">
+                                <span class="card-icon">🌐</span>
+                                <h3 class="card-title">Project Hermes SSV Progress</h3>
+                            </div>
+                            <div class="card-desc">SSV AND CLUSTER OPTI MONITORING</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="action-label">Open Dashboard ↗</span>
+                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(event, 3)">Remove</button>
+                        </div>
+                    </div>
+                </a><a class="card-button" href="https://rgpmjamis25.github.io/T8-Traffic-Monitoring/" target="_blank" rel="noopener">
+                    <div class="card-media">
+                        <div class="card-media-placeholder">📊</div>
+                        <span class="card-badge">MONITORING</span>
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <div class="card-title-row">
+                                <span class="card-icon">📊</span>
+                                <h3 class="card-title">Traffic Monitoring</h3>
+                            </div>
+                            <div class="card-desc">MONITORS T8 4G AND 5G TRAFFIC</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="action-label">Open Dashboard ↗</span>
+                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(event, 4)">Remove</button>
+                        </div>
+                    </div>
+                </a><a class="card-button" href="https://rgpmjamis25.github.io/Zero-Avail-Monitoring/" target="_blank" rel="noopener">
+                    <div class="card-media">
+                        <div class="card-media-placeholder">🔐</div>
+                        <span class="card-badge">MONITORING</span>
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <div class="card-title-row">
+                                <span class="card-icon">🔐</span>
+                                <h3 class="card-title">CS - Zero Avail Cells</h3>
+                            </div>
+                            <div class="card-desc">MONITORS AVAILABILITY OF THE TOP CELLS WITH CS ISSUES</div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="action-label">Open Dashboard ↗</span>
+                            <button class="btn-delete" style="display: inline-block" onclick="deleteLink(event, 5)">Remove</button>
+                        </div>
+                    </div>
+                </a></div>
     </div>
 
     <script>
@@ -410,23 +517,47 @@
 
         const INITIAL_LINKS = [
   {
-    "title": "Documentation",
-    "url": "https://docs.example.com",
-    "category": "Work",
-    "description": "Team project docs and guidelines."
-  },
-  {
-    "title": "GitHub",
-    "url": "https://github.com",
-    "category": "Tools",
-    "description": "Version control and repository hosting."
-  },
-  {
     "title": "Project Hermes Swap Universe",
     "url": "https://rgpmjamis25.github.io/Hermes-Project-Swap/",
     "category": "MONITORING",
     "description": "Monitors the Hermes Swap Project",
     "icon": "AUTO"
+  },
+  {
+    "title": "NETWORK INSIGHTS",
+    "url": "https://rgpmjamis25.github.io/NETWORK-INSIGHTS/",
+    "category": "INSIGHTS",
+    "icon": "📊",
+    "description": "NETWORK INSIGHTS FOR TRAFFIC CONGESTION AND META DATA"
+  },
+  {
+    "title": "Weekly Congestion Monitoring",
+    "url": "https://rgpmjamis25.github.io/Congestion-Weekly-Monitoring/",
+    "category": "MONITORING",
+    "icon": "📊",
+    "description": "MONITORS T8 CONGESTION TREND"
+  },
+  {
+    "title": "Project Hermes SSV Progress",
+    "url": "https://rgpmjamis25.github.io/Hermes-SSV/",
+    "category": "MONITORING",
+    "icon": "🌐",
+    "description": "SSV AND CLUSTER OPTI MONITORING"
+  },
+  {
+    "title": "Traffic Monitoring",
+    "url": "https://rgpmjamis25.github.io/T8-Traffic-Monitoring/",
+    "category": "MONITORING",
+    "icon": "📊",
+    "description": "MONITORS T8 4G AND 5G TRAFFIC"
+  },
+  {
+    "title": "CS - Zero Avail Cells",
+    "url": "https://rgpmjamis25.github.io/Zero-Avail-Monitoring/",
+    "category": "MONITORING",
+    "icon": "🔐",
+    "image": "",
+    "description": "MONITORS AVAILABILITY OF THE TOP CELLS WITH CS ISSUES"
   }
 ];
         let linksList = JSON.parse(localStorage.getItem('t8_portal_links')) || INITIAL_LINKS;
@@ -614,5 +745,6 @@
 
         renderCards(linksList);
     </script>
-</body>
-</html>
+
+
+</body></html>
